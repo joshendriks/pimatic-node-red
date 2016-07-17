@@ -1,0 +1,68 @@
+<script type="text/javascript">
+    RED.nodes.registerType('variable in',{
+        category: 'pimatic',
+        color: '#2fa4e7',
+        defaults: {
+            name: {value:""},
+			variable: {value:""}
+        },
+        inputs:0,
+        outputs:1,
+        icon: "pimatic.png",
+        label: function() {
+            return this.name||"variable";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="variable in">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-variable"><i class="icon-tag"></i> Variable</label>
+        <input type="text" id="node-input-variable" placeholder="Variable">
+    </div>	
+</script>
+
+<script type="text/x-red" data-help-name="variable in">
+    <p>Is triggered whenever the value of the specified variable changes in pimatic. The new value is put into <code>msg.payload</code></p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('device out',{
+        category: 'pimatic',
+        color: '#2fa4e7',
+        defaults: {
+			device: {value:"",required:true},
+			action: {value:""}
+        },
+        inputs:1,
+        outputs:0,
+        icon: "pimatic.png",
+        label: function() {
+            return this.device||"device";
+        },
+		labelStyle: function() {
+            return (this.device)?"node_label_italic":"";
+        },
+    });
+</script>
+
+<script type="text/x-red" data-template-name="device out">
+    <div class="form-row">
+        <label for="node-input-device"><i class="icon-tag"></i> Device</label>
+        <input type="text" id="node-input-device" placeholder="Device">
+    </div>	
+
+    <div class="form-row">
+        <label for="node-input-action"><i class="icon-tag"></i> Action</label>
+        <input type="text" id="node-input-action" placeholder="Action">
+    </div>	
+</script>
+
+<script type="text/x-red" data-help-name="device out">
+    <p>Turn dummy-switch on</p>
+</script>

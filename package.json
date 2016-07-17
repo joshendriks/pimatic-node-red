@@ -1,0 +1,28 @@
+{ "name": "pimatic-node-red",
+  "description": "The plugin description",
+  "author": "Your Name <you@example.com> (http://your-website)",
+  "main": "node-red",
+  "files": [
+    "node-red.coffee",
+    "README.md",
+    "node-red-config-schema.coffee"
+  ],
+  "version": "0.8.0",
+  "homepage": "http://your-plugin-website",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pimatic/pimatic-plugin-template.git"
+  },
+  "configSchema": "node-red-config-schema.coffee",
+  "dependencies": {
+    "node-red": "0.14.4"
+  },
+  "peerDependencies": {
+    "pimatic": "0.9.*"
+  },
+  "engines": {
+    "node": ">0.8.x",
+    "npm": ">1.1.x"
+  }
+}
