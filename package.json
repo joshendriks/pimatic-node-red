@@ -1,18 +1,21 @@
 { "name": "pimatic-node-red",
   "description": "The plugin description",
-  "author": "Your Name <you@example.com> (http://your-website)",
+  "author": "Jos Hendriks <media@circuitdb.com> (http://circuitdb.com)",
   "main": "node-red",
   "files": [
     "node-red.coffee",
     "README.md",
-    "node-red-config-schema.coffee"
+    "node-red-config-schema.coffee",
+	"pimatic-node.js",
+	"pimatic-node.html",
+	"icons/pimatic.png"
   ],
-  "version": "0.8.0",
-  "homepage": "http://your-plugin-website",
-  "private": true,
+  "version": "0.0.2",
+  "homepage": "http://circuitdb.com",
+  "private": false,
   "repository": {
     "type": "git",
-    "url": "git://github.com/pimatic/pimatic-plugin-template.git"
+    "url": "https://github.com/circuitdb/pimatic-node-red.git"
   },
   "configSchema": "node-red-config-schema.coffee",
   "dependencies": {
