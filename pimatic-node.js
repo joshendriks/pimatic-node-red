@@ -2,12 +2,13 @@ module.exports = function(RED) {
     function VariableChangedNode(config) {
         RED.nodes.createNode(this,config);
         var node = this;
-		node.name = config.name;
         node.variable = config.variable;
 		
 		function changeListener(changedVar, value) {
-			var msg = { payload:value + changedVar.name}
-			node.send(msg);
+			if(changedVar.name == node.variable) {
+				var msg = { payload:value}
+				node.send(msg);
+			}
         }
 		
 		RED.settings.pimaticFramework.variableManager.on('variableValueChanged', changeListener);
