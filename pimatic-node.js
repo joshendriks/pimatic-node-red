@@ -5,17 +5,16 @@ module.exports = function(RED) {
 		node.name = config.name;
         node.variable = config.variable;
 		
-		RED.settings.pimaticFramework.variableManager.on('variableValueChanged', function(changedVar, value) {
+		function changeListener(changedVar, value) {
 			var msg = { payload:value + changedVar.name}
 			node.send(msg);
-        });
+        }
+		
+		RED.settings.pimaticFramework.variableManager.on('variableValueChanged', changeListener);
 		
 		node.on("close", function(done) {
-            if (this.serialConfig) {
-                serialPool.close(this.serialConfig.serialport,done);
-            } else {
-                done();
-            }
+            RED.settings.pimaticFramework.variableManager.removeListener("variableValueChanged", changeListener)
+			done();
         });
     }
     RED.nodes.registerType("variable in",VariableChangedNode);
