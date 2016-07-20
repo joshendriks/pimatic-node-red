@@ -6,7 +6,6 @@ module.exports = (env) ->
   class NodeRed extends env.plugins.Plugin
 
     init: (@app, @framework, @config) =>
-      env.logger.info("Hello World")
       settings = {
         httpAdminRoot:"/red",
         httpNodeRoot: "/api",
@@ -20,7 +19,6 @@ module.exports = (env) ->
       appie.use("/",express.static("public"));
       server = http.createServer(appie);
 	  
-      env.logger.info "RED init"
       RED.init(server,settings)
       appie.use(settings.httpAdminRoot,RED.httpAdmin)
       appie.use(settings.httpNodeRoot,RED.httpNode)
@@ -28,7 +26,6 @@ module.exports = (env) ->
       
       @framework.on 'server listen', (context)=>
         finished = true
-        env.logger.info "RED start"
         RED.start()
         return
   return new NodeRed
