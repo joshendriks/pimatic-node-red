@@ -10,8 +10,8 @@ module.exports = (env) ->
       settings = {
         httpAdminRoot:"/red",
         httpNodeRoot: "/api",
-        userDir:"/home/nol/.nodered/",
-        nodesDir:"D:\\pimatic-dev\\node_modules\\pimatic-node-red",
+        userDir:__dirname + "/../../",
+        nodesDir:__dirname,
         pimaticFramework:@framework,
         functionGlobalContext: { }
       }
