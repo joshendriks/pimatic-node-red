@@ -1,6 +1,7 @@
 { "name": "pimatic-node-red",
-  "description": "The plugin description",
+  "description": "Runs node-red on pimatic",
   "author": "Jos Hendriks <media@circuitdb.com> (http://circuitdb.com)",
+  "license": "Apache-2.0",
   "main": "node-red",
   "files": [
     "node-red.coffee",

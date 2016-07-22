@@ -1,5 +1,5 @@
 # pimatic-node-red
-Runs node-red from on pimatic
+Runs node-red on pimatic
 
 ### Features
 Run the node-red engine embedded in pimatic. This enables the use of node-red flow directly integrated into the pimatic framework. The following nodes are available:
