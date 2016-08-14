@@ -5,11 +5,11 @@
         defaults: {
 			variable: {value:"",required:true}
         },
-        inputs:0,
+        inputs:1,
         outputs:1,
         icon: "pimatic.png",
         label: function() {
-            return this.name||"variable";
+            return (this.variable)?this.variable:"variable";
         },
 		labelStyle: function() {
             return (this.variable)?"node_label_italic":"";
@@ -25,7 +25,7 @@
 </script>
 
 <script type="text/x-red" data-help-name="variable in">
-    <p>Is triggered whenever the value of the specified variable changes in pimatic. The new value is put into <code>msg.payload</code></p>
+    <p>Sends the value of the specified variable when it changed or when this node received intput. The new value is put into <code>msg.payload</code></p>
 </script>
 
 <script type="text/javascript">
@@ -61,5 +61,5 @@
 </script>
 
 <script type="text/x-red" data-help-name="device out">
-    <p>Turn dummy-switch on</p>
+    <p>Calls the specified action on the specified device.</p>
 </script>

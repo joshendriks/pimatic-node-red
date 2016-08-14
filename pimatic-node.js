@@ -4,12 +4,26 @@ module.exports = function(RED) {
         var node = this;
         node.variable = config.variable;
 		
+		if (RED.settings.pimaticFramework.variableManager.isVariableDefined(node.variable)) {
+			node.status({fill:"green",shape:"ring",text:"ok"});
+		} else {
+			node.status({fill:"red",shape:"ring",text:"variable not found"});
+		}
+		
 		function changeListener(changedVar, value) {
 			if(changedVar.name == node.variable) {
 				var msg = { payload:value}
 				node.send(msg);
 			}
         }
+
+		node.on('input', function(msg) {
+			if (RED.settings.pimaticFramework.variableManager.isVariableDefined(node.variable)) {
+				var value = RED.settings.pimaticFramework.variableManager.getVariableValue(node.variable);
+				var msg = { payload:value};
+				node.send(msg);
+			}
+		});
 		
 		RED.settings.pimaticFramework.variableManager.on('variableValueChanged', changeListener);
 		
@@ -20,7 +34,7 @@ module.exports = function(RED) {
     }
     RED.nodes.registerType("variable in",VariableChangedNode);
 
-    function DeviceAttributeChangedNode(config) {
+    function DeviceActionNode(config) {
         RED.nodes.createNode(this,config);
         var node = this;
         node.device = config.device;
@@ -46,5 +60,5 @@ module.exports = function(RED) {
 			}
         });
     }
-    RED.nodes.registerType("device out",DeviceAttributeChangedNode);
+    RED.nodes.registerType("device out",DeviceActionNode);
 }
