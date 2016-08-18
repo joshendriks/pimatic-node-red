@@ -11,7 +11,7 @@
 	"pimatic-node.html",
 	"icons/pimatic.png"
   ],
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "http://circuitdb.com",
   "private": false,
   "repository": {
@@ -20,7 +20,7 @@
   },
   "configSchema": "node-red-config-schema.coffee",
   "dependencies": {
-    "node-red": "0.14.4"
+    "node-red": "0.14.6"
   },
   "peerDependencies": {
     "pimatic": "0.9.*"
