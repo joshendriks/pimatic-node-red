@@ -12,7 +12,7 @@ module.exports = function(RED) {
 		
 		function changeListener(changedVar, value) {
 			if(changedVar.name == node.variable) {
-				var msg = { payload:value}
+				var msg = { payload:value, variable: node.variable};
 				node.send(msg);
 			}
         }
@@ -20,7 +20,7 @@ module.exports = function(RED) {
 		node.on('input', function(msg) {
 			if (RED.settings.pimaticFramework.variableManager.isVariableDefined(node.variable)) {
 				var value = RED.settings.pimaticFramework.variableManager.getVariableValue(node.variable);
-				var msg = { payload:value};
+				var msg = { payload:value, variable: node.variable};
 				node.send(msg);
 			}
 		});
