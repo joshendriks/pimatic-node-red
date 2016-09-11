@@ -1,4 +1,23 @@
 module.exports = function(RED) {
+    function AllVariableChangesNode(config) {
+        RED.nodes.createNode(this,config);
+        var node = this;
+        node.variable = config.variable;
+
+		function changeListener(changedVar, value) {
+			var msg = { payload:value, variable: changedVar.name};
+			node.send(msg);
+        }
+		
+		RED.settings.pimaticFramework.variableManager.on('variableValueChanged', changeListener);
+		
+		node.on("close", function(done) {
+            RED.settings.pimaticFramework.variableManager.removeListener("variableValueChanged", changeListener)
+			done();
+        });
+    }
+    RED.nodes.registerType("allvariables in",AllVariableChangesNode);
+	
     function VariableChangedNode(config) {
         RED.nodes.createNode(this,config);
         var node = this;

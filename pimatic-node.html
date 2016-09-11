@@ -1,4 +1,23 @@
 <script type="text/javascript">
+    RED.nodes.registerType('allvariables in',{
+        category: 'pimatic',
+        color: '#2fa4e7',
+        defaults: {},
+        inputs:0,
+        outputs:1,
+        icon: "pimatic.png",
+        label: "all variables"
+    });
+</script>
+
+<script type="text/x-red" data-template-name="allvariables in">
+</script>
+
+<script type="text/x-red" data-help-name="allvariables in">
+    <p>Sends the value and name of any variable that changed. The new value is put into <code>msg.payload</code>, the name value is put into <code>msg.variable</code></p>
+</script>
+
+<script type="text/javascript">
     RED.nodes.registerType('variable in',{
         category: 'pimatic',
         color: '#2fa4e7',
@@ -25,7 +44,7 @@
 </script>
 
 <script type="text/x-red" data-help-name="variable in">
-    <p>Sends the value of the specified variable when it changed or when this node received intput. The new value is put into <code>msg.payload</code></p>
+    <p>Sends the value and name of the specified variable when changed or when this node received intput. The new value is put into <code>msg.payload</code>, the name value is put into <code>msg.variable</code></p>
 </script>
 
 <script type="text/javascript">
