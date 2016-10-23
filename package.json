@@ -11,7 +11,7 @@
 	"pimatic-node.html",
 	"icons/pimatic.png"
   ],
-  "version": "0.0.5",
+  "version": "0.0.6",
   "homepage": "http://circuitdb.com",
   "private": false,
   "repository": {

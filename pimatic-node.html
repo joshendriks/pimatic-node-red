@@ -53,11 +53,13 @@
         color: '#2fa4e7',
         defaults: {
 			device: {value:"",required:true},
-			action: {value:"",required:true}
+			action: {value:"",required:true},
+			parameter: {value:"",required:false}
         },
         inputs:1,
         outputs:0,
         icon: "pimatic.png",
+        align: 'right',
         label: function() {
             return this.device||"device";
         },
@@ -74,11 +76,16 @@
     </div>	
 
     <div class="form-row">
-        <label for="node-input-action"><i class="icon-tag"></i> Action</label>
+        <label for="node-input-action"><i class="fa fa-bolt"></i> Action</label>
         <input type="text" id="node-input-action" placeholder="Action">
-    </div>	
+    </div>
+    <div class="form-row">
+        <label for="node-input-action"><i class="fa fa-bookmark-o"></i> Parameter</label>
+        <input type="text" id="node-input-parameter" placeholder="Action">
+    </div>
 </script>
 
 <script type="text/x-red" data-help-name="device out">
-    <p>Calls the specified action on the specified device.</p>
+    <p>Calls the configured <code>action</code> on the configured <code>device</code> using an optional <code>parameter</code>.</p>
+    <p>The <code>msg.parameter</code> will be used as an argument for a call (for example changeDimlevelTo takes an argument). When <code>msg.parameter</code> is undefined the configured <code>parameter</code> is used. When there is also no configured <code>parameter</code>, the action call is made without parameter.</p>
 </script>

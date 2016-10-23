@@ -58,7 +58,7 @@ module.exports = function(RED) {
         var node = this;
         node.device = config.device;
         node.action = config.action;
-		
+	node.parameter = config.parameter;	
 		var device = RED.settings.pimaticFramework.deviceManager.getDeviceById(node.device);
 		if (device) {
 			if (device.hasAction(node.action)) {
@@ -73,7 +73,14 @@ module.exports = function(RED) {
 		node.on('input', function(msg) {
             var device = RED.settings.pimaticFramework.deviceManager.getDeviceById(node.device);
 			if (device) {
-				device[node.action]();
+                                if (msg.parameter) {
+                                    device[node.action](msg.parameter);
+                                } else if (node.parameter){
+				    device[node.action](node.parameter);
+                                } else {
+                                    device[node.action]();
+                                }
+
 			} else {
 				node.status({fill:"red",shape:"ring",text:"device not found"});
 			}
