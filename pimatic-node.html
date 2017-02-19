@@ -79,13 +79,52 @@
         <label for="node-input-action"><i class="fa fa-bolt"></i> Action</label>
         <input type="text" id="node-input-action" placeholder="Action">
     </div>
+	
     <div class="form-row">
         <label for="node-input-action"><i class="fa fa-bookmark-o"></i> Parameter</label>
-        <input type="text" id="node-input-parameter" placeholder="Action">
+        <input type="text" id="node-input-parameter" placeholder="Parameter">
     </div>
 </script>
 
 <script type="text/x-red" data-help-name="device out">
     <p>Calls the configured <code>action</code> on the configured <code>device</code> using an optional <code>parameter</code>.</p>
     <p>The <code>msg.parameter</code> will be used as an argument for a call (for example changeDimlevelTo takes an argument). When <code>msg.parameter</code> is undefined the configured <code>parameter</code> is used. When there is also no configured <code>parameter</code>, the action call is made without parameter.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('variable out',{
+        category: 'pimatic',
+        color: '#2fa4e7',
+        defaults: {
+			variable: {value:"",required:true},
+			unit: {value:"",required:false}
+        },
+        inputs:1,
+        outputs:0,
+        icon: "pimatic.png",
+        align: 'right',
+        label: function() {
+            return this.variable||"variable";
+        },
+		labelStyle: function() {
+            return (this.variable)?"node_label_italic":"";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="variable out">
+    <div class="form-row">
+        <label for="node-input-variable"><i class="icon-tag"></i>Variable</label>
+        <input type="text" id="node-input-variable" placeholder="Variable">
+    </div>
+	
+	<div class="form-row">
+        <label for="node-input-unit"><i class="fa fa-balance-scale"></i>Unit</label>
+        <input type="text" id="node-input-unit" placeholder="Unit">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="variable out">
+    <p>Sets <code>msg.payload</code> as new value on the configured <code>variable</code>.</p>
+    <p>Optionally <code>unit</code> can be specified to alse set the unit of the variable.</p>
 </script>

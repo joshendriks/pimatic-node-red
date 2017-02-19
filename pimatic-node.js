@@ -58,7 +58,7 @@ module.exports = function(RED) {
         var node = this;
         node.device = config.device;
         node.action = config.action;
-	node.parameter = config.parameter;	
+	    node.parameter = config.parameter;	
 		var device = RED.settings.pimaticFramework.deviceManager.getDeviceById(node.device);
 		if (device) {
 			if (device.hasAction(node.action)) {
@@ -87,4 +87,31 @@ module.exports = function(RED) {
         });
     }
     RED.nodes.registerType("device out",DeviceActionNode);
+	
+	function VariableValueNode(config) {
+        RED.nodes.createNode(this,config);
+        var node = this;
+        node.variable = config.variable;
+		node.unit = config.unit;	
+		var variable = RED.settings.pimaticFramework.variableManager.isVariableDefined(node.variable);
+		if (variable) {
+			node.status({fill:"green",shape:"ring",text:"ok"});
+		} else {
+			node.status({fill:"red",shape:"ring",text:"variable not found"});
+		}
+		
+		node.on('input', function(msg) {
+            var variable = RED.settings.pimaticFramework.variableManager.getVariableByName(node.variable);
+			if (variable) {
+				if (node.unit){
+					RED.settings.pimaticFramework.variableManager.setVariableToValue(node.variable, msg.payload, node.unit);
+				} else {
+					RED.settings.pimaticFramework.variableManager.setVariableToValue(node.variable, msg.payload, variable.unit);
+				}
+			} else {
+				node.status({fill:"red",shape:"ring",text:"variable not found"});
+			}
+        });
+    }
+    RED.nodes.registerType("variable out",VariableValueNode);
 }
