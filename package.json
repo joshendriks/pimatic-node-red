@@ -1,6 +1,6 @@
 { "name": "pimatic-node-red",
   "description": "Runs node-red on pimatic",
-  "author": "Jos Hendriks <media@circuitdb.com> (http://circuitdb.com)",
+  "author": "Jos Hendriks <jos@hendriks.software> (http://hendriks.software)",
   "license": "Apache-2.0",
   "main": "node-red",
   "files": [
@@ -8,15 +8,15 @@
     "README.md",
     "node-red-config-schema.coffee",
 	"pimatic-node.js",
-	"pimatic-node.html",
-	"icons/pimatic.png"
+	"icons/pimatic.png",
+	"pimatic-node.html"
   ],
   "version": "0.0.7",
-  "homepage": "http://circuitdb.com",
+  "homepage": "http://hendriks.software",
   "private": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/circuitdb/pimatic-node-red.git"
+    "url": "https://github.com/joshendriks/pimatic-node-red.git"
   },
   "configSchema": "node-red-config-schema.coffee",
   "dependencies": {
