@@ -11,7 +11,7 @@
 	"icons/pimatic.png",
 	"pimatic-node.html"
   ],
-  "version": "0.0.7",
+  "version": "0.0.8",
   "homepage": "http://hendriks.software",
   "private": false,
   "repository": {
