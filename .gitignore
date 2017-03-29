@@ -1,3 +1,4 @@
 node_modules/
 pimatic-node-red-*.tgz
 .js/
+node_modules
