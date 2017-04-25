@@ -31,8 +31,12 @@ module.exports = function(RED) {
 		
 		function changeListener(changedVar, value) {
 			if(changedVar.name == node.variable) {
-				var msg = { payload:value, variable: node.variable};
-				node.send(msg);
+                                var context = node.context();
+                                if (context.get('value') != value) {
+                                       context.set('value', value);
+				       var msg = { payload:value, variable: node.variable};
+				       node.send(msg);
+                                }
 			}
         }
 
