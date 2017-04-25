@@ -92,7 +92,8 @@ module.exports = function(RED) {
         RED.nodes.createNode(this,config);
         var node = this;
         node.variable = config.variable;
-		node.unit = config.unit;	
+		node.unit = config.unit;
+                node.value = config.value;	
 		var variable = RED.settings.pimaticFramework.variableManager.isVariableDefined(node.variable);
 		if (variable) {
 			node.status({fill:"green",shape:"ring",text:"ok"});
@@ -103,11 +104,9 @@ module.exports = function(RED) {
 		node.on('input', function(msg) {
             var variable = RED.settings.pimaticFramework.variableManager.getVariableByName(node.variable);
 			if (variable) {
-				if (node.unit){
-					RED.settings.pimaticFramework.variableManager.setVariableToValue(node.variable, msg.payload, node.unit);
-				} else {
-					RED.settings.pimaticFramework.variableManager.setVariableToValue(node.variable, msg.payload, variable.unit);
-				}
+                                var unit = node.unit ? node.unit : variable.unit;
+                                var value = node.value ? node.value : msg.payload;
+                                RED.settings.pimaticFramework.variableManager.setVariableToValue(node.variable, value, unit);
 			} else {
 				node.status({fill:"red",shape:"ring",text:"variable not found"});
 			}
