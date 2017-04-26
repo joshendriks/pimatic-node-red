@@ -22,8 +22,9 @@
         category: 'pimatic',
         color: '#2fa4e7',
         defaults: {
-			variable: {value:"",required:true}
-        },
+			variable: {value:"",required:true},
+			filter: {value:"false",required:true}
+		},
         inputs:1,
         outputs:1,
         icon: "pimatic.png",
@@ -40,11 +41,16 @@
     <div class="form-row">
         <label for="node-input-variable"><i class="icon-tag"></i> Variable</label>
         <input type="text" id="node-input-variable" placeholder="Variable">
-    </div>	
+    </div>
+	<div class="form-row">
+        <label for="node-input-filter"><i class="fa fa-bookmark-o"></i> Filter</label>
+        <input type="checkbox" id="node-input-filter" style="display: inline-block; width: auto; vertical-align: top;">
+    </div>
 </script>
 
 <script type="text/x-red" data-help-name="variable in">
     <p>Sends the value and name of the specified variable when changed or when this node received intput. The new value is put into <code>msg.payload</code>, the name value is put into <code>msg.variable</code></p>
+    <p>When enabled the <code>filter</code> will filter out duplicate values. For example, if a switch is already 'on' and a 'on' event is received this node will not emit a message.</p>
 </script>
 
 <script type="text/javascript">

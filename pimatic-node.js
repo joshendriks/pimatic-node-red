@@ -22,6 +22,7 @@ module.exports = function(RED) {
         RED.nodes.createNode(this,config);
         var node = this;
         node.variable = config.variable;
+		node.filter = config.filter;
 		
 		if (RED.settings.pimaticFramework.variableManager.isVariableDefined(node.variable)) {
 			node.status({fill:"green",shape:"ring",text:"ok"});
@@ -32,7 +33,7 @@ module.exports = function(RED) {
 		function changeListener(changedVar, value) {
 			if(changedVar.name == node.variable) {
                                 var context = node.context();
-                                if (context.get('value') != value) {
+                                if (context.get('value') != value || !node.filter) {
                                        context.set('value', value);
 				       var msg = { payload:value, variable: node.variable};
 				       node.send(msg);
