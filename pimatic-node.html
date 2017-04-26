@@ -62,9 +62,9 @@
         align: 'right',
         label: function() {
             if(this.parameter){
-                return (this.device)?(this.device + " " + this.action + " " + this.parameter):"device";
+                return (this.device)?(this.device + "." + this.action + "(" + this.parameter + ")"):"device";
             } else {
-                return (this.device)?(this.device + " " + this.action):"device";
+                return (this.device)?(this.device + "." + this.action):"device";
             }
         },
 		labelStyle: function() {
@@ -110,7 +110,7 @@
         align: 'right',
         label: function() {
             if(this.value){
-                return (this.variable)?(this.variable + " " + this.value):"variable";
+                return (this.variable)?(this.variable + "=" + this.value):"variable";
             } else {
                 return (this.variable)?this.variable:"variable";
             }		
