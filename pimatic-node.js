@@ -44,7 +44,8 @@ module.exports = function(RED) {
 		node.on('input', function(msg) {
 			if (RED.settings.pimaticFramework.variableManager.isVariableDefined(node.variable)) {
 				var value = RED.settings.pimaticFramework.variableManager.getVariableValue(node.variable);
-				var msg = { payload:value, variable: node.variable};
+				msg.payload = value;
+				msg.variable = node.variable;
 				node.send(msg);
 			}
 		});

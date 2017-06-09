@@ -1,5 +1,5 @@
 # Set the base image
-FROM joshendriks/pimatic
+FROM joshendriks/raspberry-pi2-pimatic
 
 RUN mkdir /home/node-red
 RUN cd /home/node-red && npm install node-red
