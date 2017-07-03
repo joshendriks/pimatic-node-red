@@ -10,7 +10,7 @@ module.exports = (env) ->
         httpAdminRoot:"/red",
         httpNodeRoot: "/api",
         userDir:__dirname + "/../../",
-        nodesDir:__dirname,
+        nodesDir:[__dirname,__dirname + "/../../"],
         pimaticFramework:@framework,
         functionGlobalContext: { }
       }
