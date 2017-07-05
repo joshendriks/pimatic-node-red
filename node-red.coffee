@@ -8,7 +8,7 @@ module.exports = (env) ->
     init: (@app, @framework, @config) =>
       settings = {
         httpAdminRoot:"/red",
-        httpNodeRoot: "/api",
+        httpNodeRoot: "/api/",
         userDir:__dirname + "/../../",
         nodesDir:[__dirname,__dirname + "/../../"],
         pimaticFramework:@framework,
