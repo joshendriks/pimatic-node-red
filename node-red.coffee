@@ -22,7 +22,7 @@ module.exports = (env) ->
       RED.init(server,settings)
       appie.use(settings.httpAdminRoot,RED.httpAdmin)
       appie.use(settings.httpNodeRoot,RED.httpNode)
-      server.listen(8000);
+      server.listen(@config.port);
 
       @framework.on 'server listen', (context)=>
         finished = true
