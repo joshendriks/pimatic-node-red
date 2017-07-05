@@ -14,20 +14,25 @@ module.exports = (env) ->
         pimaticFramework:@framework,
         functionGlobalContext: { }
       }
-	  
+
       appie = express();
       appie.use("/",express.static("public"));
       server = http.createServer(appie);
-	  
+
       RED.init(server,settings)
       appie.use(settings.httpAdminRoot,RED.httpAdmin)
       appie.use(settings.httpNodeRoot,RED.httpNode)
       server.listen(8000);
-      
+
       @framework.on 'server listen', (context)=>
         finished = true
-        RED.start()
+        RED.start().catch (error) =>
+          env.logger.error "Startup failed: ", error
         return
+
+      @framework.once 'destroy', (context) =>
+        context.waitForIt RED.stop()
+
   return new NodeRed
   
   
