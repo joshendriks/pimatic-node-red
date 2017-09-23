@@ -2,7 +2,7 @@
 FROM joshendriks/raspberry-pi2-pimatic
 
 RUN mkdir /home/node-red
-RUN cd /home/node-red && npm install node-red
+RUN cd /home/node-red && npm install node-red@0.17.5
 RUN mkdir /home/pimatic-app/node_modules/pimatic-node-red
 
 # Enable pimatic-node-red in config
