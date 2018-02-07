@@ -1,6 +1,6 @@
 module.exports = (env) ->
   http = env.require 'http'
-  express = env.require 'express';
+  express = env.require 'express'
   RED = require 'node-red'
 
   class NodeRed extends env.plugins.Plugin
@@ -16,13 +16,16 @@ module.exports = (env) ->
       }
 
       appie = express();
-      appie.use("/",express.static("public"));
-      server = http.createServer(appie);
+      appie.use("/",express.static("public"))
+      server = http.createServer(appie)
 
       RED.init(server,settings)
       appie.use(settings.httpAdminRoot,RED.httpAdmin)
       appie.use(settings.httpNodeRoot,RED.httpNode)
-      server.listen(@config.port);
+      server.listen(@config.port)
+      
+      #debug for url
+      console.log server;
 
       @framework.on 'server listen', (context)=>
         finished = true
@@ -40,7 +43,7 @@ module.exports = (env) ->
           env.logger.warn "node-red could not find mobile-frontend. Didn't add link."
           
       app.get('/nodered/get', (req, res) =>
-        @url = "http://127.0.0.1/" + settings.httpAdminRoot + ":" + @config.port
+        @url = "http://127.0.0.1" + settings.httpAdminRoot + ":" + @config.port
         res.send(@url)
       )
 
@@ -48,5 +51,3 @@ module.exports = (env) ->
         context.waitForIt RED.stop()
 
   return new NodeRed
-  
-  
