@@ -7,9 +7,10 @@
     "node-red.coffee",
     "README.md",
     "node-red-config-schema.coffee",
-	"pimatic-node.js",
-	"icons/pimatic.png",
-	"pimatic-node.html"
+    "pimatic-node.js",
+    "icons/pimatic.png",
+    "pimatic-node.html",
+    "app/"
   ],
   "version": "1.0.7",
   "homepage": "http://hendriks.software",
