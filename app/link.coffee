@@ -6,10 +6,10 @@ $(document).on( "pagebeforecreate", (event) ->
   pimatic.socket.on('connect', ->
     if linkAdded then return
     $.ajax({
-      url: '/links/get',
+      url: '/nodered/get',
       type: 'GET',
       global: false
-    }).done( (links) ->
+    }).done( (url) ->
       if linkAdded then return
       divider = $ """
         <li 
@@ -26,11 +26,11 @@ $(document).on( "pagebeforecreate", (event) ->
         li = $ """
           <li data-theme="f">
             <a 
-              href="#{link.url}" 
+              href="" 
               data-transition="slidefade" 
               class="ui-btn ui-btn-f ui-btn-icon-right ui-icon-carat-r links-plugin"
-              target="#{link.target or '_blank'}">
-                #{link.title}
+              target="iframe">
+                "Node-Red"
             </a>
           </li>
         """
@@ -44,11 +44,10 @@ $(document).on( "pagebeforecreate", (event) ->
 
 $(document).on( "click", ".links-plugin", (event) ->
   a = $(this)
-  if a.attr('target') is 'iframe'
-    iframe = $('#node-red-iframe')
-    iframe.attr('src', a.attr('href'))
-    $('#node-red-page h3').text(a.text())
-    jQuery.mobile.changePage '#node-red-page', transition: 'slide'
-    event.preventDefault()
-    return false
+  iframe = $('#node-red-iframe')
+  iframe.attr('src', a.attr('href'))
+  $('#node-red-page h3').text("Node-Red")
+  jQuery.mobile.changePage '#node-red-page', transition: 'slide'
+  event.preventDefault()
+  return false
 )
