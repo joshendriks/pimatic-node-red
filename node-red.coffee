@@ -29,6 +29,15 @@ module.exports = (env) ->
         RED.start().catch (error) =>
           env.logger.error "Startup failed: ", error
         return
+      
+      @framework.on "after init", =>
+        mobileFrontend = @framework.pluginManager.getPlugin 'mobile-frontend'
+        if mobileFrontend?
+          mobileFrontend.registerAssetFile 'js', "pimatic-node-red/app/link.coffee"
+          mobileFrontend.registerAssetFile 'html', "pimatic-node-red/app/link.jade"
+          mobileFrontend.registerAssetFile 'css', "pimatic-node-red/app/link.css"
+        else
+          env.logger.warn "node-red could not find mobile-frontend. Didn't add link."
 
       @framework.once 'destroy', (context) =>
         context.waitForIt RED.stop()
