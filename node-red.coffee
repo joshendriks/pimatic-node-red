@@ -38,14 +38,10 @@ module.exports = (env) ->
           mobileFrontend.registerAssetFile 'css', "pimatic-node-red/app/link.css"
         else
           env.logger.warn "node-red could not find mobile-frontend. Didn't add link."
-      @config.links = {
-        "title": "Node-Red",
-        "url": "http://127.0.0.1/" + settings.httpAdminRoot + ":" + @config.port,
-        "target": "iframe"
-      }
-      
-      app.get('/links/get', (req, res) =>
-        res.send(@config.links)
+          
+      app.get('/nodered/get', (req, res) =>
+        @url = "http://127.0.0.1/" + settings.httpAdminRoot + ":" + @config.port
+        res.send(@url)
       )
 
       @framework.once 'destroy', (context) =>
