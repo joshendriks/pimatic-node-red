@@ -42,7 +42,7 @@ module.exports = (env) ->
         else
           env.logger.warn "node-red could not find mobile-frontend. Didn't add link."
           
-      app.get('/nodered/get', (req, res) =>
+      @app.get('/nodered/get', (req, res) =>
         @url = "http://127.0.0.1" + settings.httpAdminRoot + ":" + @config.port
         res.send(@url)
       )
