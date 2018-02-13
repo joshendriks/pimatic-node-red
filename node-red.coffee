@@ -6,6 +6,7 @@ module.exports = (env) ->
   class NodeRed extends env.plugins.Plugin
 
     init: (@app, @framework, @config) =>
+      @debug = @config.debug
       settings = {
         httpAdminRoot:"/red",
         httpNodeRoot: "/api/",
@@ -23,9 +24,6 @@ module.exports = (env) ->
       appie.use(settings.httpAdminRoot,RED.httpAdmin)
       appie.use(settings.httpNodeRoot,RED.httpNode)
       server.listen(@config.port)
-      
-      #debug for url
-      console.log server;
 
       @framework.on 'server listen', (context)=>
         finished = true
@@ -43,7 +41,7 @@ module.exports = (env) ->
           env.logger.warn "node-red could not find mobile-frontend. Didn't add link."
           
       @app.get('/nodered/get', (req, res) =>
-        @url = "http://127.0.0.1" + settings.httpAdminRoot + ":" + @config.port
+        @url = "http://" + req.hostname + ":" + @config.port + settings.httpAdminRoot
         res.send(@url)
       )
 
