@@ -4,7 +4,6 @@ module.exports = (env) ->
   RED = require 'node-red'
   brypt = require 'bcryptjs-then'
 
-
   class NodeRed extends env.plugins.Plugin
 
     init: (@app, @framework, @config) =>
@@ -32,57 +31,65 @@ module.exports = (env) ->
         }
 
         #console.log @framework.config.users
-        # { username: 'admin', password: 'admin', role: 'admin' } 
-        # { username: 'display', password: 'display', role: 'readonly' }
-        passwd = new Promise (
-          for user in @framework.config.users
-            console.log user.username #admin
-            #console.log user.password  #admin
-            #console.log user.role    #admin
+        ###
+        [ { username: 'admin', password: 'admin', role: 'admin' },
+        { username: 'display', password: 'display', role: 'readonly' } ]
+        ###
+        newUser = {}
+        for user, i in @framework.config.users
+          #console.log user.username  #admin \n display
+          #console.log user.password  #admin \n display
+          #console.log user.role      #admin \n read
+          #console.log i              #0 \n 1
+         
+          newUser.username = user.username
+          if user.role is 'admin'
+            newUser.permissions = "*"
+          else
+            newUser.permissions = "read"
 
-            newUser = {}
-            newUser.username = user.username
+          settings.adminAuth.users.push(newUser)
 
+          brypt.hash(user.password, 8).then( (hashed) =>
+            #console.log user.username     #display \n display
+            #console.log hashed            #$2a$08$EZ4geLNwO3WXc/foQ5b/Ou5FKwcdnv/GApIn3EGd2Am1fatOnjU5a \n $2a$08$SHaUO2Z2Ber1FFSQywWzOOue3nFrgfEZ.cxfL81Hb0zGCDJ5F0TT.
+
+            ###
             if user.role is 'admin'
-              newUser.permissions = "*"
+              console.log {username: "#{user.username}", password: "#{hashed}", permissions: "*"}
+              settings.adminAuth.users.push({username: "#{user.username}", password: "#{hashed}", permissions: "*"})
             else
-              newUser.permissions = "read"
+              console.log {username: "#{user.username}", password: "#{hashed}", permissions: "read"}
+              settings.adminAuth.users.push({username: "#{user.username}", password: "#{hashed}", permissions: "read"})
+            ###
+            settings.adminAuth.users[i].password = hashed
+         
+            #console.log newUser
+            ###
+            { username: 'admin', permissions: '*' }
+            { username: 'display', permissions: 'read' }
+            ###
+            #settings.adminAuth.users.push(newUser)                      
+          )
+          newUser = {}
+        console.log settings.adminAuth.users
+        ###
+        [ { username: 'root',
+          password: '$2a$08$zZWtXTja0fB1pzD4sHCMyOCMYz2Z6dNbM6tl8sJogENOMcxWV9DN.',
+          permissions: '*' },
+        { username: 'admin', permissions: '*' },
+        { username: 'display', permissions: 'read' } ]
+        ###
 
-            newUser.password = brypt.hash(user.password, 8).then( (hashed) =>
-              #console.log hashed    #$2a$08$tbBYol7jFqG2XbM7r4DQbOXM1tmu9ihtjVBvB37SRRW31BpoVbIQW 
-              console.log user.username
-              ###
-              if user.role is 'admin'
-                console.log {username: "#{user.username}", password: "#{hashed}", permissions: "*"}
-                settings.adminAuth.users.push({username: "#{user.username}", password: "#{hashed}", permissions: "*"})
-              else
-                console.log {username: "#{user.username}", password: "#{hashed}", permissions: "read"}
-                settings.adminAuth.users.push({username: "#{user.username}", password: "#{hashed}", permissions: "read"})
-              ###
-              return hashed
-            )
-            newUser.password.then((pw) ->
-              settings.adminAuth.users.push(newUser)
-            )            
-
-          Promise.resolve(settings)
-
-        ).then( (settings) ->
-          RED.init(server,settings)
-          appie.use(settings.httpAdminRoot,RED.httpAdmin)
-          appie.use(settings.httpNodeRoot,RED.httpNode)
-          server.listen(@config.port)
-        )
-      else
-        RED.init(server,settings)
-        appie.use(settings.httpAdminRoot,RED.httpAdmin)
-        appie.use(settings.httpNodeRoot,RED.httpNode)
-        server.listen(@config.port)
+      RED.init(server,settings)
+      appie.use(settings.httpAdminRoot,RED.httpAdmin)
+      appie.use(settings.httpNodeRoot,RED.httpNode)
+      server.listen(@config.port)
 
       @framework.on 'server listen', (context)=>
         finished = true
         RED.start().catch (error) =>
-        env.logger.error "Startup failed: ", error
+          env.logger.error "Startup failed: ", error
         return
 
       @framework.once 'destroy', (context) =>
