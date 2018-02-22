@@ -21,7 +21,7 @@
   },
   "configSchema": "node-red-config-schema.coffee",
   "dependencies": {
-    "bcryptjs-then": "^1.0.1",
+    "bcryptjs": "^2.4.3",
     "node-red": "0.17.5"
   },
   "peerDependencies": {
