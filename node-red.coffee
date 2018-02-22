@@ -1,8 +1,6 @@
 module.exports = (env) ->
-  Promise = env.require 'bluebird'
-  _ = env.require 'lodash'  
   http = env.require 'http'
-  express = env.require 'express';
+  express = env.require 'express'
   RED = require 'node-red'
   bcrypt = require 'bcryptjs'
 
@@ -10,8 +8,6 @@ module.exports = (env) ->
 
     init: (@app, @framework, @config) =>
       debug = @config.debug
-      port = @config.port
-      auth = @config.auth
 
       settings = {
         httpAdminRoot:"/red",
@@ -26,17 +22,13 @@ module.exports = (env) ->
       appie.use("/",express.static("public"));
       server = http.createServer(appie);
 
-      if auth is true
+      if @config.auth is true
       	if debug
       		env.logger.debug "Authentication is enabled"
 
         settings.adminAuth = {
           type: "credentials",
-          users: [{
-            username: "root",
-            password: "$2a$08$zZWtXTja0fB1pzD4sHCMyOCMYz2Z6dNbM6tl8sJogENOMcxWV9DN.",
-            permissions: "*"
-          }]
+          users: []
         }
 
         if debug
@@ -62,12 +54,12 @@ module.exports = (env) ->
         RED.init(server,settings)
         appie.use(settings.httpAdminRoot,RED.httpAdmin)
         appie.use(settings.httpNodeRoot,RED.httpNode)
-        server.listen(port)
+        server.listen(@config.port)
       else
         RED.init(server,settings)
         appie.use(settings.httpAdminRoot,RED.httpAdmin)
         appie.use(settings.httpNodeRoot,RED.httpNode)
-        server.listen(port)
+        server.listen(@config.port)
 
       @framework.on 'server listen', (context)=>
         finished = true
