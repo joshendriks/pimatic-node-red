@@ -1,4 +1,5 @@
-{ "name": "pimatic-node-red",
+{
+  "name": "pimatic-node-red",
   "description": "Runs node-red on pimatic",
   "author": "Jos Hendriks <jos@hendriks.software> (http://hendriks.software)",
   "license": "Apache-2.0",
@@ -7,9 +8,9 @@
     "node-red.coffee",
     "README.md",
     "node-red-config-schema.coffee",
-	"pimatic-node.js",
-	"icons/pimatic.png",
-	"pimatic-node.html"
+    "pimatic-node.js",
+    "icons/pimatic.png",
+    "pimatic-node.html"
   ],
   "version": "1.0.7",
   "homepage": "http://hendriks.software",
@@ -20,6 +21,7 @@
   },
   "configSchema": "node-red-config-schema.coffee",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "node-red": "0.17.5"
   },
   "peerDependencies": {
